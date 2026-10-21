@@ -1,10 +1,18 @@
 {
   "name": "prodoljay",
-  "version": "0.2.0",
-  "description": "Schedule a Claude Code prompt to start later at a local time in a new terminal window (macOS, Windows). List and cancel scheduled prompts.",
-  "author": { "name": "nicknotknack" },
+  "version": "0.2.1",
+  "description": "Schedule a Claude Code prompt to run later in a new terminal window. List and cancel scheduled prompts.",
+  "author": {
+    "name": "nicknotknack"
+  },
   "homepage": "https://github.com/nicknotknack/claude-prodoljay",
   "repository": "https://github.com/nicknotknack/claude-prodoljay",
   "license": "MIT",
-  "keywords": ["schedule", "delayed", "overnight", "timer", "terminal"]
+  "keywords": [
+    "schedule",
+    "delayed",
+    "overnight",
+    "timer",
+    "terminal"
+  ]
 }

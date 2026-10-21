@@ -1,14 +1,12 @@
 ---
 name: prodoljay-list
-description: Show prompts scheduled with /prodoljay — when they run, status, directory. Use when the user asks what is scheduled or whether a scheduled prompt ran.
+description: List prompts scheduled with /prodoljay, with their run time and status. Use when the user asks what is scheduled or whether a scheduled prompt ran.
 argument-hint: [--all]
 allowed-tools: Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/prodoljay.mjs" *)
 ---
 
-Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/prodoljay.mjs" list $ARGUMENTS` and summarize it for the user in their language as a short table: id, status, run time (and "in N h M min" for pending), directory, prompt start.
+Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/prodoljay.mjs" list $ARGUMENTS` and show the result as a short table in the user's language: id, status, run time (with time remaining for pending jobs), directory, prompt.
 
-Statuses: `pending` waiting; `launched` terminal opened; `running` claude is running; `finished` claude exited; `cancelled`; `failed` (show the error); `lost` the waiter process is gone (reboot or logout), so the prompt will not run — offer to schedule it again.
+Statuses: `pending`, `launched`, `running`, `finished`, `cancelled`, `failed` (include the error), `lost` (the computer restarted or the user logged out; offer to reschedule). `[test]` marks a test job.
 
-Jobs marked `[test]` are first-run checks: `finished` means scheduling works on this machine, `failed` means it does not — show the error and suggest `/prodoljay test` after fixing it.
-
-Mention `/prodoljay-cancel <id>` if anything is pending. Without `--all`, finished and cancelled jobs older than a day are hidden.
+Without `--all`, jobs that ended more than a day ago are hidden.

@@ -1,6 +1,6 @@
 # prodoljay
 
-Schedule a Claude Code prompt to start later. At the chosen time, a new terminal window opens and `claude` starts working on the prompt. The machine stays awake while it waits.
+Schedule a Claude Code prompt to run later. At the scheduled time, prodoljay opens a new terminal window and starts `claude` with your prompt. The computer stays awake until then.
 
 ```
 /prodoljay 00:15 build the frontend from SPEC.md
@@ -13,31 +13,31 @@ claude plugin marketplace add nicknotknack/claude-prodoljay
 claude plugin install prodoljay@prodoljay
 ```
 
-Requires Node.js 18+ and `claude` on your PATH. Tested on macOS. Windows support is implemented but has not been tested yet.
+Requirements: macOS or Windows, Node.js 18+, and `claude` on your PATH.
 
-## Use
+## Usage
 
-| Command | |
+| Command | Description |
 |---|---|
-| `/prodoljay <time> <prompt>` | schedule a prompt |
-| `/prodoljay <time> ./prompt.md` | use a file as the prompt |
-| `/prodoljay-list` | show scheduled prompts |
-| `/prodoljay-cancel <id \| all>` | cancel |
-| `/prodoljay test` | run a test in one minute |
+| `/prodoljay <time> <prompt>` | Schedule a prompt |
+| `/prodoljay <time> <file>` | Schedule a prompt read from a file |
+| `/prodoljay-list` | List scheduled prompts |
+| `/prodoljay-cancel <id \| all>` | Cancel scheduled prompts |
+| `/prodoljay test` | Run a test prompt in one minute |
 
-**Time:** `00:15` · `9:30` · `12:15 AM` · `7pm` · `2026-10-22 09:00` · `+2h` · `+1h30m`. A clock time that has already passed today means tomorrow.
+**Time formats:** `00:15`, `12:15 AM`, `7pm`, `2026-10-22 09:00`, `+2h`, `+1h30m`. If a clock time has already passed today, the prompt runs tomorrow.
 
 **Options:**
-- `--effort <level>` sets the effort level for the scheduled session.
-- `--dir <path>` sets the working directory. The default is the current project.
-- `--safe` keeps permission prompts on. Without it, the session runs with `bypassPermissions` so nothing blocks it overnight.
+- `--effort <level>` — effort level for the scheduled session.
+- `--dir <path>` — working directory. Defaults to the current project.
+- `--safe` — keep permission prompts on. Without this flag, the session runs in `bypassPermissions` mode.
 
-On the first schedule on a machine, prodoljay also runs a test one minute later. Watch the window that opens: it should print `✓ prodoljay test passed`.
+The first time you schedule a prompt on a computer, prodoljay also runs a test prompt one minute later to confirm that scheduling works.
 
-## Good to know
+## Notes
 
-- Keep the computer on and stay logged in. On a laptop, keep the lid open and the charger plugged in.
-- A reboot or logout drops pending jobs. They show up as `lost` in `/prodoljay-list`.
+- The computer must stay on and logged in. On a laptop, keep the lid open and the charger connected.
+- Restarting or logging out drops pending prompts. They appear as `lost` in `/prodoljay-list`.
 - Jobs and logs are stored in `~/.claude/prodoljay/`.
 
 ## License

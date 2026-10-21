@@ -1,11 +1,16 @@
 {
   "name": "prodoljay",
-  "owner": { "name": "nicknotknack" },
+  "owner": {
+    "name": "nicknotknack"
+  },
+  "metadata": {
+    "description": "Schedule Claude Code prompts to run later."
+  },
   "plugins": [
     {
       "name": "prodoljay",
       "source": "./",
-      "description": "Schedule a Claude Code prompt to start later at a local time in a new terminal window."
+      "description": "Schedule a Claude Code prompt to run later in a new terminal window."
     }
   ]
 }
