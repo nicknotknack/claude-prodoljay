@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = fileURLToPath(import.meta.url);
-const HOME = process.env.PRODOLJAY_HOME || path.join(os.homedir(), '.claude', 'prodoljay');
+const HOME = path.join(os.homedir(), '.claude', 'prodoljay');
 const JOBS = path.join(HOME, 'jobs');
 const POLL_MS = 15_000;
 const IS_WIN = process.platform === 'win32';
@@ -90,12 +90,8 @@ function effectiveStatus(job) {
   return job.status === 'pending' && !isAlive(job.waiterPid) ? 'lost' : job.status;
 }
 
-// Env without Claude Code session markers, so the launched claude is a fresh top-level session.
-function cleanEnv() {
-  const env = { ...process.env };
-  for (const k of Object.keys(env)) if (k === 'CLAUDECODE' || k.startsWith('CLAUDE_CODE_')) delete env[k];
-  return env;
-}
+// Child processes start a fresh top-level claude session, so drop the nested-session marker they would inherit.
+delete process.env.CLAUDECODE;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -201,7 +197,7 @@ function openTerminal(job) {
     if (r.status !== 0) throw new Error(`osascript failed: ${(r.stderr || '').trim()}`);
   } else if (IS_WIN) {
     const line = ['start', '"prodoljay"', ...cmd.map((s) => `"${s}"`)].join(' ');
-    const child = spawn('cmd.exe', ['/d', '/s', '/c', `"${line}"`], { windowsVerbatimArguments: true, detached: true, stdio: 'ignore', env: cleanEnv() });
+    const child = spawn('cmd.exe', ['/d', '/s', '/c', `"${line}"`], { windowsVerbatimArguments: true, detached: true, stdio: 'ignore' });
     child.unref();
   } else {
     throw new Error('opening a terminal is supported on macOS and Windows only');
@@ -231,7 +227,7 @@ function createJob({ runAt, prompt, cwd, effort = null, bypassPermissions = true
   saveJob(job);
 
   const log = fs.openSync(path.join(jobDir(id), 'waiter.log'), 'a');
-  const waiter = spawn(process.execPath, [SCRIPT, 'wait', id], { detached: true, stdio: ['ignore', log, log], windowsHide: true, env: cleanEnv() });
+  const waiter = spawn(process.execPath, [SCRIPT, 'wait', id], { detached: true, stdio: ['ignore', log, log], windowsHide: true });
   waiter.unref();
   return updateJob(id, { waiterPid: waiter.pid });
 }
@@ -348,7 +344,7 @@ function cmdRun(id) {
   args.push(prompt);
   updateJob(id, { status: 'running', startedAt: new Date().toISOString() });
   if (job.test) console.log(`prodoljay test ${id}: ${prompt}\n`);
-  const child = spawn(job.claude.command, args, { stdio: 'inherit', env: cleanEnv() });
+  const child = spawn(job.claude.command, args, { stdio: 'inherit' });
   child.on('error', (e) => {
     updateJob(id, { status: 'failed', error: e.message });
     console.error(`prodoljay: ${e.message}`);
