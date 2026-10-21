@@ -53,6 +53,10 @@ All logic is in [`bin/prodoljay.mjs`](bin/prodoljay.mjs), a single Node.js file 
 
 No data leaves your computer. See [PRIVACY.md](PRIVACY.md).
 
+## Support
+
+Telegram [@nicknotknack](https://t.me/nicknotknack) or [GitHub issues](https://github.com/nicknotknack/claude-prodoljay/issues).
+
 ## License
 
 MIT

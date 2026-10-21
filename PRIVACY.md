@@ -7,4 +7,4 @@ prodoljay runs entirely on your computer.
 - **Retention:** files stay on your computer until you delete them. Deleting `~/.claude/prodoljay/` removes all plugin data.
 - **Third parties:** at the scheduled time, the plugin starts your local `claude` CLI with your prompt. That session is handled by Claude Code under Anthropic's terms, like any session you start yourself.
 
-Questions: https://github.com/nicknotknack/claude-prodoljay/issues
+Questions: https://t.me/nicknotknack or https://github.com/nicknotknack/claude-prodoljay/issues
