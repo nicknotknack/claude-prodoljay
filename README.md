@@ -13,7 +13,7 @@ claude plugin marketplace add nicknotknack/claude-prodoljay
 claude plugin install prodoljay@prodoljay
 ```
 
-Requirements: macOS or Windows, Node.js 18+, and `claude` on your PATH.
+Requirements: Claude Code on macOS or Windows, Node.js 18+, and `claude` on your PATH.
 
 ## Usage
 
@@ -36,7 +36,7 @@ The first time you schedule a prompt on a computer, prodoljay also runs a test p
 
 ## What it runs
 
-All logic is in [`scripts/prodoljay.mjs`](scripts/prodoljay.mjs), a single Node.js file with no dependencies. It makes no network requests and sends no data anywhere.
+All logic is in [`bin/prodoljay.mjs`](bin/prodoljay.mjs), a single Node.js file with no dependencies. It makes no network requests and sends no data anywhere.
 
 - **Scheduling** starts a background Node.js process that waits until the run time.
 - **Keeping the computer awake** uses `caffeinate` on macOS and `SetThreadExecutionState` through PowerShell on Windows.
