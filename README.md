@@ -49,6 +49,10 @@ All logic is in [`bin/prodoljay.mjs`](bin/prodoljay.mjs), a single Node.js file 
 - The computer must stay on and logged in. On a laptop, keep the lid open and the charger connected.
 - Restarting or logging out drops pending prompts. They appear as `lost` in `/prodoljay-list`.
 
+## Privacy
+
+No data leaves your computer. See [PRIVACY.md](PRIVACY.md).
+
 ## License
 
 MIT
