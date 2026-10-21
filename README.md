@@ -34,11 +34,20 @@ Requirements: macOS or Windows, Node.js 18+, and `claude` on your PATH.
 
 The first time you schedule a prompt on a computer, prodoljay also runs a test prompt one minute later to confirm that scheduling works.
 
+## What it runs
+
+All logic is in [`scripts/prodoljay.mjs`](scripts/prodoljay.mjs), a single Node.js file with no dependencies. It makes no network requests and sends no data anywhere.
+
+- **Scheduling** starts a background Node.js process that waits until the run time.
+- **Keeping the computer awake** uses `caffeinate` on macOS and `SetThreadExecutionState` through PowerShell on Windows.
+- **Opening the terminal** uses `osascript` to open Terminal.app on macOS and `cmd /c start` on Windows.
+- **Running the prompt** starts the `claude` CLI in the chosen directory. By default the session runs with `--permission-mode bypassPermissions`, so it can work unattended without asking for approval. Use `--safe` to keep permission prompts.
+- **Storage** is limited to job files and logs in `~/.claude/prodoljay/`.
+
 ## Notes
 
 - The computer must stay on and logged in. On a laptop, keep the lid open and the charger connected.
 - Restarting or logging out drops pending prompts. They appear as `lost` in `/prodoljay-list`.
-- Jobs and logs are stored in `~/.claude/prodoljay/`.
 
 ## License
 

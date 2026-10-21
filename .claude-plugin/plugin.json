@@ -1,6 +1,7 @@
 {
   "name": "prodoljay",
-  "version": "0.2.1",
+  "displayName": "Prodoljay",
+  "version": "0.3.0",
   "description": "Schedule a Claude Code prompt to run later in a new terminal window. List and cancel scheduled prompts.",
   "author": {
     "name": "nicknotknack"
@@ -14,5 +15,8 @@
     "overnight",
     "timer",
     "terminal"
-  ]
+  ],
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/nicknotknack/claude-prodoljay#readme",
+  "supportUrl": "https://github.com/nicknotknack/claude-prodoljay/issues"
 }
